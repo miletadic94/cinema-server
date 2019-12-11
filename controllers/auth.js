@@ -1,25 +1,28 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const { login, register } = require('../repository/authRepository')
+const { login, register } = require("../repository/authRepository");
 
-router.post('/login', async (req, res, next) => {
-    try {
-        const response = await login(req.body);
-        res.header('Authorization', response)
-            .send({ message: 'Success!', token: response });
+router.post("/login", async (req, res, next) => {
+  try {
+    const { token, user, error } = await login(req.body);
+
+    if (error) throw error;
+
+    if (token) {
+      res.header("Authorization", token).send({ data: { user } });
     }
-    catch (error) {
-        res.status(404).send(new Error(error));
-    }
+  } catch (error) {
+    res.send({ data: null, error });
+  }
 });
 
-router.post('/register', async (req, res, next) => {
-    try {
-        const response = await register(req.body);
-        res.send(response);
-    } catch (error) {
-        res.status(404).send(new Error(error));
-    }
+router.post("/register", async (req, res, next) => {
+  try {
+    const response = await register(req.body);
+    res.send(response);
+  } catch (error) {
+    res.status(404).send(new Error(error));
+  }
 });
 
 module.exports = router;
