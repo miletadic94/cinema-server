@@ -26,11 +26,11 @@ const login = async ({ username, password }) => {
 
     return { token, user };
   } catch (error) {
-    return { error };
+    throw error;
   }
 };
 
-const register = async ({ username, email, password, active = true }) => {
+const register = async ({ username, email, password }) => {
   try {
     const { error } = registerValidation({ username, email, password });
     if (error) throw new CinemaError(400, error.message);
@@ -45,12 +45,13 @@ const register = async ({ username, email, password, active = true }) => {
       username,
       email,
       password: hashPassword,
-      active
+      role: 0,
+      active: true
     }).save();
 
     return user;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
