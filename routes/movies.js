@@ -1,19 +1,14 @@
 const router = require("express").Router();
 
-const { getAll, save } = require("../repository/movieRepository");
+const MovieRepository = require("../repository/MovieRepository");
 
-/* GET users listing. */
+/* GET movies listing. */
 router.get("/", async (req, res, next) => {
-  const movies = await getAll();
-  res.send(movies);
-});
-
-router.post("/", async (req, res, next) => {
   try {
-    const movie = await save(req.body);
-    res.send(movie);
+    const movies = await MovieRepository.findAll();
+    res.status(200).send(movies);
   } catch (error) {
-    res.status(error.code).send(error.message);
+    res.status(400).send(error.message);
   }
 });
 

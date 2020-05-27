@@ -3,11 +3,11 @@ const cors = require("cors");
 const logger = require("morgan");
 
 const dotenv = require("dotenv");
-const database = require("./database");
-
-const usersRouter = require("./routes/users");
 
 dotenv.config();
+
+const SyncRouter = require("./routes/syncDb");
+const MovieRouter = require("./routes/movies");
 
 const PORT = process.env.PORT || 8080;
 
@@ -19,7 +19,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/users", usersRouter);
+app.use("/sync", SyncRouter);
+app.use("/movies", MovieRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);
