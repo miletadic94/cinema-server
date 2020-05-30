@@ -1,24 +1,23 @@
 const router = require("express").Router();
 
-const { login, register } = require("../repository/authRepository");
+const userService = require("../services/userService");
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { user, token } = await login(req.body);
-    if (token) {
-      res.header("Authorization", token).send({ user, token });
-    }
+    const response = await userService.login(req.body);
+    res.send(response);
   } catch (error) {
-    res.status(error.code).send(error.message);
+    console.log(error);
+    res.status(error.code).send(error);
   }
 });
 
 router.post("/register", async (req, res, next) => {
   try {
-    const response = await register(req.body);
+    const response = await userService.register(req.body);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error.message);
+    res.status(error.code).send(error);
   }
 });
 

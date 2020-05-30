@@ -16,26 +16,25 @@ const User = db.define(
       allowNull: false,
       unique: true,
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true,
-    },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
-    phone: {
+    phoneNumber: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     dateOfBirth: {
       type: DataTypes.DATEONLY,
-      allowNull: true,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
