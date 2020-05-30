@@ -1,4 +1,4 @@
-const movieRepository = require("../repository/movieRepository");
+const movieRepository = require("../repository/movie.repository");
 
 const fetchAll = async () => {
   try {

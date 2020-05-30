@@ -1,10 +1,10 @@
 const router = require("express").Router();
 
-const userService = require("../services/userService");
+const authService = require("../services/auth.service.js");
 
 router.post("/login", async (req, res, next) => {
   try {
-    const response = await userService.login(req.body);
+    const response = await authService.login(req.body);
     res.send(response);
   } catch (error) {
     console.log(error);
@@ -14,7 +14,7 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   try {
-    const response = await userService.register(req.body);
+    const response = await authService.register(req.body);
     res.send(response);
   } catch (error) {
     res.status(error.code).send(error);
