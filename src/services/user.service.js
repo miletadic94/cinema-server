@@ -1,8 +1,10 @@
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const userRepository = require("../repository/user.repository");
+const {
+  saveUserValidation,
+  updateUserValidation,
+} = require("../validation/user.validation");
 const CinemaError = require("../utils/CinemaError");
-const {} = require("../validation/auth.validation");
 
 const fetchAll = async () => {
   try {
@@ -36,19 +38,39 @@ const findByEmail = async (email) => {
 
 const save = async (data) => {
   try {
-    return userRepository.save(data);
+    //Validation
+    const { error } = saveUserValidation(data);
+    if (error) throw new CinemaError(400, error.details[0].message);
+
+    //Check email exist
+    const emailExist = await findByEmail(data.email);
+    if (!!emailExist) throw new CinemaError(400, "Email already exist!");
+
+    //Hash passwords
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(data.password, salt);
+
+    //Creating user
+    const user = await userRepository.save({
+      ...data,
+      password,
+      dateOfBirth: new Date(data.dateOfBirth),
+    });
+    return { user };
   } catch (error) {
     throw error;
   }
 };
 
-const update = async (body) => {
+const update = async (id, data) => {
   try {
-    //let updatedMovie = {};
-    let user = await userRepository.findById(body.id);
+    //Validation
+    const { error } = updateUserValidation(data);
+    if (error) throw new CinemaError(400, error.details[0].message);
 
-    //TODO: Validation
-    return userRepository.update(user);
+    const user = await userRepository.findById(id);
+    await user.update({ ...data });
+    return { data: user };
   } catch (error) {
     throw error;
   }
@@ -56,6 +78,7 @@ const update = async (body) => {
 
 module.exports = {
   fetchAll,
+  findByEmail,
   findById,
   save,
   update,

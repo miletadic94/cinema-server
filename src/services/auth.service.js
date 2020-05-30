@@ -13,8 +13,6 @@ const login = async (data) => {
     const { error } = loginValidation(data);
     if (error) throw new CinemaError(400, error.details[0].message);
 
-    console.log("DATA", data);
-
     //Check email exist
     const user = await userRepository.findByEmail(data.email);
     if (!user) throw new CinemaError(400, "Email doesnt exist!");

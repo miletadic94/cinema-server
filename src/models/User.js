@@ -46,6 +46,9 @@ const User = db.define(
     },
   },
   {
+    defaultScope: {
+      attributes: { exclude: ["updatedAt", "createdAt", "password"] },
+    },
     timestamps: true,
     tableName: "user",
   }

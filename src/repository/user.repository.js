@@ -1,11 +1,15 @@
 const User = require("../models/User");
 
 const findAll = () => {
-  return User.findAll();
+  return User.findAll({
+    attributes: { exclude: ["updatedAt", "createdAt", "password"] },
+  });
 };
 
 const findById = (id) => {
-  return User.findByPk(id);
+  return User.findOne({
+    where: { id },
+  });
 };
 
 const findByEmail = (email) => {
@@ -16,12 +20,10 @@ const findByEmail = (email) => {
   });
 };
 
-const save = (user) => {
-  return User.create(user);
-};
+const save = (user) => {};
 
-const update = (user) => {
-  return User.update(user);
+const update = (id, data) => {
+  return User.update({ ...data }, { returning: true, where: { id } });
 };
 
 module.exports = {
