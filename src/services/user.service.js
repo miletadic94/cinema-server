@@ -9,7 +9,7 @@ const CinemaError = require("../utils/CinemaError");
 const fetchAll = async () => {
   try {
     const users = await userRepository.findAll();
-    if (!users) throw new CinemaError(404, "User Not Found");
+    if (!users) throw new CinemaError(404, "Users Not Found");
     return users;
   } catch (error) {
     throw error;

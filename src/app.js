@@ -8,8 +8,8 @@ dotenv.config();
 
 const syncRouter = require("./routes/syncDb");
 const authRouter = require("./routes/auth");
-const movieRouter = require("./routes/movies");
-const userRouter = require("./routes/users");
+const moviesRouter = require("./routes/movies");
+const usersRouter = require("./routes/users");
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,8 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(authRouter);
 app.use("/sync", syncRouter);
-app.use("/movies", movieRouter);
-app.use("/users", userRouter);
+app.use("/movies", moviesRouter);
+app.use("/users", usersRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);

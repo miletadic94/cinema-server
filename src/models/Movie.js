@@ -9,12 +9,36 @@ const Movie = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+    },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    synopsys: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    youtubeLink: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    duration: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    releaseDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
     },
   },
   {
+    defaultScope: {
+      attributes: { exclude: ["updatedAt", "createdAt"] },
+    },
     timestamps: true,
     tableName: "movie",
   }
