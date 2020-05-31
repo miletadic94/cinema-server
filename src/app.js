@@ -8,6 +8,7 @@ dotenv.config();
 
 const syncRouter = require("./routes/syncDb");
 const authRouter = require("./routes/auth");
+const genresRouter = require("./routes/genres");
 const moviesRouter = require("./routes/movies");
 const usersRouter = require("./routes/users");
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(authRouter);
 app.use("/sync", syncRouter);
 app.use("/movies", moviesRouter);
+app.use("/genres", genresRouter);
 app.use("/users", usersRouter);
 
 app.listen(PORT, () => {

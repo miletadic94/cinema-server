@@ -42,7 +42,7 @@ const save = async (data) => {
     if (error) throw new CinemaError(400, error.details[0].message);
     //Check title exist
     const titleExist = await findByTitle(data.title);
-    if (!!titleExist) throw new CinemaError(400, "Title Already Exist!");
+    if (!!titleExist) throw new CinemaError(400, "Already Exist!");
 
     const movie = await movieRepository.save(data);
     return { movie };
