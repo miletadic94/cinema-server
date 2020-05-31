@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
     const response = await userService.findById(req.params.id);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error.message);
+    res.status(error.code).send(error);
   }
 });
 
@@ -24,8 +24,7 @@ router.post("/", async (req, res) => {
     const response = await userService.save(req.body);
     res.send(response);
   } catch (error) {
-    console.log("+>", error);
-    res.status(error.code).send(error.message);
+    res.status(error.code).send(error);
   }
 });
 
@@ -34,7 +33,7 @@ router.patch("/:id", async (req, res) => {
     const response = await userService.update(req.params.id, req.body);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error.message);
+    res.status(error.code).send(error);
   }
 });
 

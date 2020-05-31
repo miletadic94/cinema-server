@@ -13,20 +13,20 @@ const login = async (data) => {
     const { error } = loginValidation(data);
     if (error) throw new CinemaError(400, error.details[0].message);
 
-    //Check email exist
+    // Check if user exists
     const user = await userRepository.findByEmail(data.email);
-    if (!user) throw new CinemaError(400, "Email doesnt exist!");
+    if (!user) throw new CinemaError(400, "User doesnt exist!");
 
+    // Check if paswords match
     const validPass = await bcrypt.compare(data.password, user.password);
     if (!validPass) throw new CinemaError(400, "Wrong Credentials!");
 
-    console.log("process.env.TOKEN_SECRET", process.env.TOKEN_SECRET);
+    // Assign token
     const token = jwt.sign(
       { _id: user.id, email: user.email },
       process.env.TOKEN_SECRET
     );
 
-    console.log("token", token);
     return {
       token,
       user,

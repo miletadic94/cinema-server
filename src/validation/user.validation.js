@@ -8,7 +8,7 @@ const saveUserValidation = (data) => {
     email: Joi.string().regex(EMAIL_REGEX).min(2).max(32).required(),
     phoneNumber: Joi.string().regex(PHONE_REGEX).required(),
     address: Joi.string().min(6).max(128).required(),
-    password: Joi.string().min(6).max(64).required(),
+    password: Joi.string().min(6).max(128).required(),
     dateOfBirth: Joi.date().required(),
     isConfirmed: Joi.boolean().default(false),
   });
@@ -20,11 +20,12 @@ const updateUserValidation = (data) => {
     id: Joi.number().id(),
     firstName: Joi.string().min(2).max(32).required(),
     lastName: Joi.string().min(2).max(32).required(),
-    email: Joi.string().regex(EMAIL_REGEX).min(8).max(32).required(),
+    email: Joi.string().regex(EMAIL_REGEX).max(32).required(),
     phoneNumber: Joi.string().regex(PHONE_REGEX).required(),
     address: Joi.string().min(6).max(128).required(),
     dateOfBirth: Joi.date().required(),
     isConfirmed: Joi.boolean().required(),
+    roleId: Joi.number().min(0),
   });
   return schema.validate(data);
 };

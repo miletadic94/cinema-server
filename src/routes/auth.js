@@ -7,7 +7,7 @@ router.post("/login", async (req, res, next) => {
     const response = await authService.login(req.body);
     res.send(response);
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
     res.status(error.code).send(error);
   }
 });

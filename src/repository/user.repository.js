@@ -12,6 +12,9 @@ const findById = (id) => {
 
 const findByEmail = (email) => {
   return User.findOne({
+    attributes: {
+      include: ["password"],
+    },
     where: {
       email,
     },

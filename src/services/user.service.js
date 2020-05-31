@@ -54,6 +54,7 @@ const save = async (data) => {
     const user = await userRepository.save({
       ...data,
       password,
+      roleId: 0,
       dateOfBirth: new Date(data.dateOfBirth),
     });
     return { user };

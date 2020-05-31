@@ -56,7 +56,7 @@ const User = db.define(
 
 Role.hasMany(User, { foreignKey: "roleId", targetKey: "id" });
 User.belongsTo(Role, {
-  foreignKey: { name: "roleId", allowNull: true },
+  foreignKey: { name: "roleId", allowNull: false },
   sourceKey: "id",
   as: "role",
 });
