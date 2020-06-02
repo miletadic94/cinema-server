@@ -8,6 +8,7 @@ const createMovieValidation = (data) => {
     duration: Joi.number().allow(null),
     youtubeLink: Joi.string().allow(null),
     releaseDate: Joi.date().allow(null),
+    genres: Joi.array().allow(null),
   });
   return schema.validate(data);
 };
@@ -21,6 +22,7 @@ const updateMovieValidation = (data) => {
     duration: Joi.number().allow(null),
     youtubeLink: Joi.string().allow(null),
     releaseDate: Joi.date().allow(null),
+    genres: Joi.array().allow(null),
   });
   return schema.validate(data);
 };

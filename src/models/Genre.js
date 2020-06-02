@@ -17,7 +17,7 @@ const Genre = db.define(
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
     tableName: "genre",
   }
 );

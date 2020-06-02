@@ -1,7 +1,13 @@
 const User = require("../models/User");
 
-const findAll = () => {
-  return User.findAll({});
+const findAll = async () => {
+  try {
+    const users = await User.findAll({});
+
+    return users;
+  } catch (error) {
+    return error;
+  }
 };
 
 const findById = (id) => {

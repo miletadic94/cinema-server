@@ -1,8 +1,8 @@
 const { db } = require("../config/sequelize");
 const { DataTypes } = require("sequelize");
 
-const Cast = db.define(
-  "Cast",
+const Actor = db.define(
+  "Actor",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -18,19 +18,23 @@ const Cast = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    biografy: {
+    biography: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
-    type: {
+    dateOfBirth: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
+    placeOfBirth: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
     timestamps: true,
-    tableName: "cast",
+    tableName: "actor",
   }
 );
 
-module.exports = Cast;
+module.exports = Actor;

@@ -11,26 +11,27 @@ const MovieGenre = db.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
-    castId: {
+    genreId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
     tableName: "movie_genre",
   }
 );
+
+Genre.belongsToMany(Movie, {
+  through: "MovieGenre",
+  as: "movies",
+  foreignKey: "genreId",
+});
 
 Movie.belongsToMany(Genre, {
   through: "MovieGenre",
   as: "genres",
   foreignKey: "movieId",
-});
-Genre.belongsToMany(Movie, {
-  through: "MovieGenre",
-  as: "movies",
-  foreignKey: "genreId",
 });
 
 module.exports = MovieGenre;
