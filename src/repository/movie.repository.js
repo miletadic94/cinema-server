@@ -1,4 +1,5 @@
 const Movie = require("../models/Movie");
+const genreRepository = require("../repository/genre.repository");
 const Genre = require("../models/Genre");
 
 // should rename controller
@@ -47,7 +48,11 @@ const findByTitle = (title) => {
 
 const save = async (movie) => {
   try {
-    return await Movie.create(movie);
+    const savedMovie = await Movie.create(movie);
+    // genreIds
+    const genres = await genreRepository.findAllByIds(movie.genres);
+    await savedMovie.addGenres(genres);
+    return savedMovie;
   } catch (error) {
     throw error;
   }

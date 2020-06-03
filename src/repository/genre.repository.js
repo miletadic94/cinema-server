@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Genre = require("../models/Genre");
 
 const findAll = () => {
@@ -8,6 +9,19 @@ const findById = (id) => {
   return Genre.findOne({
     where: { id },
   });
+};
+
+const findAllByIds = async (ids) => {
+  try {
+    const genres = await Genre.findAll({
+      where: {
+        [Op.or]: ids.map((id) => ({ id })),
+      },
+    });
+    return genres;
+  } catch (error) {
+    return error;
+  }
 };
 
 const findByName = (name) => {
@@ -29,6 +43,7 @@ const update = (id, genre) => {
 module.exports = {
   findAll,
   findById,
+  findAllByIds,
   findByName,
   save,
   update,

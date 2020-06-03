@@ -23,7 +23,7 @@ const findById = async (id) => {
 
     return user;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -32,7 +32,7 @@ const findByEmail = async (email) => {
     const user = await userRepository.findByEmail(email);
     return user;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -57,9 +57,10 @@ const save = async (data) => {
       roleId: 0,
       dateOfBirth: new Date(data.dateOfBirth),
     });
+
     return { user };
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -73,7 +74,7 @@ const update = async (id, data) => {
     await user.update({ ...data });
     return { data: user };
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 

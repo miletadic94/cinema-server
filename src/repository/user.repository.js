@@ -1,4 +1,9 @@
 const User = require("../models/User");
+const CinemaError = require("../utils/CinemaError");
+
+// FOR BORIS
+// Handle SEQUELIZE ERROR WITH STATUS CODE
+// DEFAULT ROLE ID
 
 const findAll = async () => {
   try {
@@ -27,8 +32,14 @@ const findByEmail = (email) => {
   });
 };
 
-const save = (user) => {
-  return User.create(user);
+const save = async (user) => {
+  try {
+    const savedUser = await User.create({ ...user, roleId: 2 });
+    return savedUser;
+  } catch (error) {
+    console.log(error);
+    throw new CinemaError(400, error.name);
+  }
 };
 
 const update = (id, data) => {
