@@ -26,6 +26,7 @@ const updateUserValidation = (data) => {
     dateOfBirth: Joi.date().required(),
     isConfirmed: Joi.boolean().required(),
     roleId: Joi.number().min(0),
+    role: Joi.string().optional(),
   });
   return schema.validate(data);
 };

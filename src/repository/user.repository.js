@@ -37,8 +37,8 @@ const save = async (user) => {
     const savedUser = await User.create({ ...user, roleId: 2 });
     return savedUser;
   } catch (error) {
-    console.log(error);
-    throw new CinemaError(400, error.name);
+    // TODO
+    // throw new CinemaError(400, error.name);
   }
 };
 
