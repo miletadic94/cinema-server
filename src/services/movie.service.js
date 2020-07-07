@@ -95,7 +95,7 @@ const fetchImageForMovies = movies => {
           encoding: "base64",
         });
         return movie
-    }
+      }
     })   
   } catch (error) {
     throw error
