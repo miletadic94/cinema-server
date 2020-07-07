@@ -1,8 +1,6 @@
 const { db } = require("../config/sequelize");
 const { DataTypes } = require("sequelize");
 
-const User = require("./User");
-
 const Movie = db.define(
   "Movie",
   {
@@ -15,10 +13,6 @@ const Movie = db.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    },
-    year: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
     },
     synopsys: {
       type: DataTypes.STRING,
