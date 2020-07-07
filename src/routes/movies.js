@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
     const response = await movieService.fetchAll(req.query.title);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error.message);
+    res.status(error.code || 500).send(error.message);
   }
 });
 
@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
     const response = await movieService.findById(req.params.id);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error);
+    res.status(error.code || 500).send(error);
   }
 });
 
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     const response = await movieService.save(req.body, req.file);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error);
+    res.status(error.code || 500).send(error);
   }
 });
 
@@ -33,7 +33,7 @@ router.put("/:id", async (req, res) => {
     const response = await movieService.update(req.params.id, req.body);
     res.send(response);
   } catch (error) {
-    res.status(error.code).send(error);
+    res.status(error.code || 500).send(error);
   }
 });
 

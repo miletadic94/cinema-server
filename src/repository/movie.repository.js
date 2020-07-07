@@ -4,6 +4,8 @@ const genreRepository = require("../repository/genre.repository");
 const actorRepository = require("../repository/actor.repository");
 const Genre = require("../models/Genre");
 const Actor = require("../models/Actor");
+const MovieGenre = require("../models/Movie-Genre");
+const MovieActor = require("../models/Movie-Actor");
 
 // should rename to controller
 
@@ -94,8 +96,6 @@ const save = async (movie) => {
     const genres = await genreRepository.findAllByIds(movie.genres);
     await savedMovie.addGenres(genres);
 
-    console.log(movie.genres, movie.actors);
-    // actorIds
     const actors = await actorRepository.findAllByIds(movie.actors);
     await savedMovie.addActors(actors);
     return savedMovie;
@@ -107,12 +107,27 @@ const save = async (movie) => {
 const update = async (id, data) => {
   try {
     const movie = await findById(id);
-    const { genres, ...movieData } = data;
-
+    const { genres, actors, ...movieData } = data;
     await movie.update(movieData);
 
-    const genresToUpdate = await genreRepository.findAllByIds(data.genres);
+    const genresToUpdate = await genreRepository.findAllByIds(genres);
+    const actorsToUpdate = await genreRepository.findAllByIds(actors);
+
+    await MovieGenre.destroy({
+      where: {
+        movieId: id,
+      },
+    });
+
+    await MovieActor.destroy({
+      where: {
+        movieId: id,
+      },
+    });
+
     await movie.addGenres(genresToUpdate);
+    await movie.addActors(actorsToUpdate);
+
     return movie;
   } catch (error) {
     return error;
