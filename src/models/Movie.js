@@ -40,6 +40,10 @@ const Movie = db.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    imagePath: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     defaultScope: {
