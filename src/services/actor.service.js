@@ -45,8 +45,8 @@ const update = async (id, data) => {
     const { error } = updateActorValidation(data);
     if (error) throw new CinemaError(400, error.details[0].message);
 
-    const genre = await actorRepository.findById(id);
-    await genre.update({ ...data });
+    // const genre = await actorRepository.findById(id);
+    // await genre.update({ ...data });
     return { data: genre };
   } catch (error) {
     throw error;

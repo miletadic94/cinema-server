@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Actor = require("../models/Actor");
 
 const findAll = () => {
@@ -8,6 +9,19 @@ const findById = (id) => {
   return Actor.findOne({
     where: { id },
   });
+};
+
+const findAllByIds = async (ids) => {
+  try {
+    const genres = await Actor.findAll({
+      where: {
+        [Op.or]: ids.map((id) => ({ id })),
+      },
+    });
+    return genres;
+  } catch (error) {
+    return error;
+  }
 };
 
 const save = (actor) => {
@@ -21,6 +35,7 @@ const update = (id, actor) => {
 module.exports = {
   findAll,
   findById,
+  findAllByIds,
   save,
   update,
 };

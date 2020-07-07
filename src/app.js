@@ -12,6 +12,7 @@ const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
 const actorsRouter = require("./routes/actors");
 const genresRouter = require("./routes/genres");
+const uploadRouter = require("./routes/upload");
 
 const PORT = process.env.PORT || 8080;
 
@@ -29,6 +30,7 @@ app.use("/users", usersRouter);
 app.use("/movies", moviesRouter);
 app.use("/actors", actorsRouter);
 app.use("/genres", genresRouter);
+app.use("/upload", uploadRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);

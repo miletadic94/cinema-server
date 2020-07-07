@@ -5,9 +5,24 @@ const {
 } = require("../validation/movies.validation");
 const CinemaError = require("../utils/CinemaError");
 
-const fetchAll = async () => {
+const fetchAll = async (title) => {
   try {
-    const movies = await movieRepository.findAll();
+    let movies = [];
+    if (title) {
+      movies = await movieRepository.findAllByTitle(title);
+    } else {
+      movies = await movieRepository.findAll(title);
+    }
+    if (!movies) throw new CinemaError(404, "Movies Not Found");
+    return movies;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const findAllByTitle = async (title) => {
+  try {
+    const movies = await movieRepository.findAllByTitle(title);
     if (!movies) throw new CinemaError(404, "Movies Not Found");
     return movies;
   } catch (error) {
@@ -35,7 +50,7 @@ const findByTitle = async (title) => {
   }
 };
 
-const save = async (data) => {
+const save = async (data, image) => {
   try {
     //Validation
     const { error } = createMovieValidation(data);
@@ -43,6 +58,8 @@ const save = async (data) => {
     //Check title exist
     const titleExist = await findByTitle(data.title);
     if (!!titleExist) throw new CinemaError(400, "Already Exist!");
+
+    console.log("image", image);
 
     const movie = await movieRepository.save(data);
     return { movie };
@@ -57,8 +74,8 @@ const update = async (id, data) => {
     const { error } = updateMovieValidation(data);
     if (error) throw new CinemaError(400, error.details[0].message);
 
-    const movie = await movieRepository.findById(id);
-    await movie.update({ ...data });
+    const movie = await movieRepository.update(id, data);
+    console.log(movie);
     return { data: movie };
   } catch (error) {
     throw error;
@@ -67,6 +84,7 @@ const update = async (id, data) => {
 
 module.exports = {
   fetchAll,
+  findAllByTitle,
   findByTitle,
   findById,
   save,

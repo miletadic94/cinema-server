@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const response = await actorService.update(req.params.id, req.body);
     res.send(response);

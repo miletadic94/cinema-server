@@ -1,6 +1,8 @@
 const { db } = require("../config/sequelize");
 const { DataTypes } = require("sequelize");
 
+const User = require("./User");
+
 const Movie = db.define(
   "Movie",
   {
@@ -32,6 +34,10 @@ const Movie = db.define(
     },
     releaseDate: {
       type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
+    director: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },
