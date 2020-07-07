@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const syncDb = require("../helper/db-sync");
+const syncDb = require("../utils/db-sync");
 
 router.post("/syncdb", async (req, res, next) => {
   try {
